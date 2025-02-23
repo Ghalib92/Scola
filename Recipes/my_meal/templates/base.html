@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recipes{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{%load static%}
+<link rel="stylesheet" href="{%static 'css/main.css'%}">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Best Recipes</a>
+            <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto text-white">  <!-- Added ms-auto to push right -->
+                    
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Meal</a></li>
+                            <li><a class="dropdown-item" href="#">Recipes</a></li>
+                            <li><a class="dropdown-item" href="#">Get Chef</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+<div class="container-fluid mt-5">
+    <div class="row align-items-center">
+        <!-- Image on the Left -->
+        <div class="col-md-6">
+            <img class="img-fluid rounded w-100" src="{% static 'media/base.jpg' %}" alt="Home Image" 
+                style="height: 400px; object-fit: cover;">
+        </div>
+
+        <!-- Text on the Right -->
+        <div class="col-md-6 text-white d-flex flex-column justify-content-center" style="height: 400px;">
+            <h1 class="display-4">Welcome to Alpha Recipes and Delicacies</h1>
+            <p class="lead">Discover the best recipes, delicious meal suggestions, and expert chef services for your special events.</p>
+            <div>
+                <a class="btn btn-primary btn-lg" href="#">Discover Our Recipes</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg ms-3">Signup</a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <main>
+        {% block content %}
+        <!-- Content will be injected here -->
+        {% endblock %}
+    </main>
+
+ 
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

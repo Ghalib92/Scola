@@ -2,19 +2,34 @@ from django.shortcuts import render,redirect
 from django.template import loader
 from django.http import HttpResponse
 from django .contrib.auth.models import User, auth
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home (request):
     template = loader.get_template('index.html')
     return HttpResponse(template.render())
-def login (request):
-    template = loader.get_template('login.html')
-    return HttpResponse(template.render())
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'Login successful! Welcome back.')
+            return redirect('home_page')  # Redirect to homepage or dashboard
+        else:
+            messages.error(request, 'Invalid username or password!')
+            return redirect('login')
+
+    return render(request, 'login.html')
 
  
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.contrib import messages
+
 
 def signup(request):
     if request.method == 'POST':
@@ -54,3 +69,10 @@ def signup(request):
         return redirect('login')  # Redirect to login page after successful signup
 
     return render(request, 'signup.html')  # Show signup form if request is not POST
+def logout(request):
+    auth.logout(request)
+    return redirect('login') 
+
+@login_required(login_url='login') 
+def home_page(request):
+    return render(request, 'home.html')  # Show home page with user information if logged in

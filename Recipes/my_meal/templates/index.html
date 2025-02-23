@@ -4,8 +4,11 @@
 
 <main> 
 {% block content %}
+<div class="home-div">
 
 
+ 
+ 
 <div class="container-fluid mt-3">
     <div class="row">
         <!-- Image Column -->
@@ -22,13 +25,21 @@
                     for your special events like weddings, birthdays, and parties, we've got you covered. Explore our carefully 
                     curated recipes, get inspired by our meal plans, and book a chef to bring restaurant-quality dining straight 
                     to your event. Delight your taste buds with Alpha Delicacies! 🍽️✨
+               
+                  <br><br>  <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg text-white">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg ms-3 text-white">Signup</a>
+    
                 </p>
+
+                
+                 
             </div>
         </div>
     </div>
 </div>
 
-            
+
+    </div>     
 
 
         <!-- Text Section -->

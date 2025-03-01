@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Blog
 
 # Create your views here.
 def home (request):
@@ -76,3 +77,9 @@ def logout(request):
 @login_required(login_url='login') 
 def home_page(request):
     return render(request, 'home.html')  # Show home page with user information if logged in
+
+def blog (request):
+    blogs = Blog.objects.all()
+    return render(request, 'blog.html', {'blogs': blogs})  # Pass blogs to the template
+
+    

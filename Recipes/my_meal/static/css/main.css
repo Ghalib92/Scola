@@ -229,6 +229,11 @@ h1 {
 .home-div{
     margin-bottom: 3rem;
 }
- 
+.card-img-top {
+    height: 400px; /* Adjust as needed */
+    object-fit: cover;
+    width: 100%;
+}
+
  
      

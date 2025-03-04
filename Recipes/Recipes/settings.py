@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'my_meal',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Recipe Admin",
+    "site_header": "Recipe Management",
+    "site_brand": "Recipe Admin",
+    "welcome_sign": "Welcome to the Recipe System",
+    "copyright": "Recipe Management",
+    "show_ui_builder": True,  # Enable UI customization
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"model": "auth.User"},
+        
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

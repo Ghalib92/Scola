@@ -82,4 +82,6 @@ def blog (request):
     blogs = Blog.objects.all()
     return render(request, 'blog.html', {'blogs': blogs})  # Pass blogs to the template
 
+def about (request):
+    return render(request, 'about.html')  # Show about page with information about the website
     

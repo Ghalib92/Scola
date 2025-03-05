@@ -40,13 +40,22 @@
                             <li><a class="dropdown-item" href="#">Get Chef</a></li>
                         </ul>
                     </li>
+
+                    {% if user.is_authenticated %}
+    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+{% endif %}
+
+{% if user.is_authenticated %}
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+{% endif %}
+
                 </ul>
             </div>
         </div>
     </nav>
     
 
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-0">
     <div class="row align-items-center">
         <!-- Image on the Left -->
         <div class="col-md-6">

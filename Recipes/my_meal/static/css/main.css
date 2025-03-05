@@ -235,5 +235,15 @@ h1 {
     width: 100%;
 }
 
- 
+.card {
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
      

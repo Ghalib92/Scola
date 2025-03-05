@@ -9,4 +9,6 @@ urlpatterns = [
     path('home',views.home_page,name='home_page'),
     path('blog',views.blog,name = 'blog'),
     path('about',views.about, name='about'),
+    path('profile',views.profile,name = 'profile'),
+    
 ]

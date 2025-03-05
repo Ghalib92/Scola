@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 from django.db import models
@@ -22,7 +24,7 @@ class UserProfile(models.Model):
         ('allergic', 'Allergic'),
         ('diabetic', 'Diabetic'),
         ('normal', 'No Restrictions'),
-        
+
     ]
     
     diet_preference = models.CharField(max_length=50, choices=DIET_CHOICES, default='normal')
@@ -30,3 +32,44 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+
+    
+class RecipeBase(models.Model):
+    FOOD_TIMES = [
+        ('breakfast', 'Breakfast'),
+        ('lunch', 'Lunch'),
+        ('dinner', 'Dinner'),
+    ]
+    
+    food_name = models.CharField(max_length=255)
+    health_benefits = models.TextField()  # Stored as a comma-separated list
+    cooking_procedure = models.TextField()  # Stored as a comma-separated list
+    how_to_serve = models.TextField()
+    meal_time = models.CharField(max_length=10, choices=FOOD_TIMES)
+    meal_image = models.ImageField(upload_to='meal_images/', null=True, blank=True)
+
+    class Meta:
+        abstract = True  # This ensures that it's not created as a separate table
+
+    def get_health_benefits_list(self):
+        return self.health_benefits.split(',')
+
+    def get_cooking_procedure_list(self):
+        return self.cooking_procedure.split(',')
+
+    def __str__(self):
+        return self.food_name
+
+# Specific Recipe Models for Different Diet Categories
+class NormalRecipe(RecipeBase):
+    pass
+
+class VegetarianRecipe(RecipeBase):
+    pass
+
+class DiabeticRecipe(RecipeBase):
+    pass
+
+class AllergicRecipe(RecipeBase):
+    pass

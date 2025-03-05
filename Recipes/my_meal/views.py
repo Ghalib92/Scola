@@ -106,3 +106,62 @@ def profile(request):
 
     return render(request, 'profile.html', {'form': form, 'user_profile': user_profile})
  
+
+
+
+
+def get_meal_suggestion(user):
+    """Pick a random meal based on user diet preference and current meal time"""
+    user_profile = user.userprofile
+
+    # Determine the current meal time
+    current_hour = now().hour
+    if current_hour < 10:
+        meal_time = 'breakfast'
+    elif current_hour < 16:
+        meal_time = 'lunch'
+    else:
+        meal_time = 'dinner'
+
+
+from django.shortcuts import render
+from django.utils.timezone import now
+from django.utils.timezone import localtime, now
+from .models import AllergicRecipe, VegetarianRecipe, DiabeticRecipe, NormalRecipe
+
+def get_meal_suggestion(user):
+    """Pick a random meal based on user diet preference and current meal time"""
+    user_profile = user.userprofile
+
+    # Determine the current meal time
+    current_hour = localtime(now()).hour 
+    if current_hour < 10:
+        meal_time = 'breakfast'
+    elif current_hour < 16:
+        meal_time = 'lunch'
+    else:
+        meal_time = 'dinner'
+
+    # Select the appropriate meal category
+    if user_profile.diet_preference == "allergic":
+        qs = AllergicRecipe.objects.filter(meal_time=meal_time)
+    elif user_profile.diet_preference == "vegetarian":
+        qs = VegetarianRecipe.objects.filter(meal_time=meal_time)
+    elif user_profile.diet_preference == "diabetic":
+        qs = DiabeticRecipe.objects.filter(meal_time=meal_time)
+    else:
+        qs = NormalRecipe.objects.filter(meal_time=meal_time)
+
+    # Return a random recipe if available
+    if qs.exists():
+        return qs.order_by('?').first()
+    else:
+        return None
+
+def meal_suggestion(request):
+    """View to handle meal request"""
+    meal = None
+    if request.method == "POST":  # If user clicks the button
+        meal = get_meal_suggestion(request.user)
+
+    return render(request, 'meal_suggestion.html', {'meal': meal})

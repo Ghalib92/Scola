@@ -10,5 +10,7 @@ urlpatterns = [
     path('blog',views.blog,name = 'blog'),
     path('about',views.about, name='about'),
     path('profile',views.profile,name = 'profile'),
+    path('meal-suggestion', views.meal_suggestion, name='meal_suggestion'),
+
     
 ]

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+<style>
+    /* Styling for the meal suggestion page */
+.container {
+    max-width: 800px;
+}
+
+.card {
+    border-radius: 10px;
+    background: #f8f9fa;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.card h3 {
+    color: #ff9800;
+    text-align: center;
+}
+
+.card img {
+    width: 500px;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+
+h5 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.badge {
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.btn-primary {
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.btn-primary:hover {
+    background-color: #e68900;
+    border-color: #e68900;
+}
+
+</style>
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <h2 class="text-center">Get a Meal Suggestion</h2>
+
+    <form method="POST" action="{% url 'meal_suggestion' %}">
+        {% csrf_token %}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Give Me a Meal</button>
+        </div>
+    </form>
+    {% if meal %}
+    <div class="card shadow p-4 mt-4">
+        <h3 class="text-center">{{ meal.food_name }}</h3>
+
+        <!-- Responsive Flexbox Layout -->
+        <div class="d-flex flex-column flex-md-row align-items-start gap-5 mb-5">
+            <!-- Image Section -->
+            <div class="flex-shrink-0 text-center">
+                <img src="{{ meal.meal_image.url }}" class="img-fluid rounded" style="width: 500px;" alt="{{ meal.food_name }}">
+            </div>
+
+            <!-- Text Content -->
+            <div class="flex-grow-1 " >
+                <h5>Health Benefits</h5>
+                <ul class="mb-3">
+                    {% for benefit in meal.get_health_benefits_list %}
+                        <li>{{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h5>Cooking Procedure</h5>
+                <ol class="mb-3">
+                    {% for step in meal.get_cooking_procedure_list %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+
+                <h5>How to Serve</h5>
+                <p class="mb-3">{{ meal.how_to_serve }}</p>
+
+                <h5>Best Time for Meal</h5>
+                <p class="badge bg-success">{{ meal.meal_time|title }}</p>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+
+{% endblock %}

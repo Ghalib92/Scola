@@ -109,19 +109,7 @@ def profile(request):
 
 
 
-
-def get_meal_suggestion(user):
-    """Pick a random meal based on user diet preference and current meal time"""
-    user_profile = user.userprofile
-
-    # Determine the current meal time
-    current_hour = now().hour
-    if current_hour < 10:
-        meal_time = 'breakfast'
-    elif current_hour < 16:
-        meal_time = 'lunch'
-    else:
-        meal_time = 'dinner'
+ 
 
 
 from django.shortcuts import render

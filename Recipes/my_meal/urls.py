@@ -11,6 +11,10 @@ urlpatterns = [
     path('about',views.about, name='about'),
     path('profile',views.profile,name = 'profile'),
     path('meal-suggestion', views.meal_suggestion, name='meal_suggestion'),
+    path('drinks/', views.drinks, name='drinks'),
+    path('fruits/', views.fruits, name='fruits'),
+    path('health-habits/', views.health_habits, name='health_habits'),
+    path('snacks/', views.snacks, name='snacks'),
+    path('desserts/', views.desserts, name='desserts'),
 
-    
 ]

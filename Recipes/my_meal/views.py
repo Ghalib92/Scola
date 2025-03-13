@@ -159,3 +159,22 @@ def meal_suggestion(request):
         meals = get_meal_suggestion(request.user)
 
     return render(request, 'meal_suggestion.html', {'meals': meals})
+from django.shortcuts import render
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def drinks(request):
+    return render(request, 'drinks.html')
+
+def fruits(request):
+    return render(request, 'fruits.html')
+
+def health_habits(request):
+    return render(request, 'health_habits.html')
+
+def snacks(request):
+    return render(request, 'snacks.html')
+
+def desserts(request):
+    return render(request, 'desserts.html')

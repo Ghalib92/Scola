@@ -1,38 +1,173 @@
-{%extends 'base.html' %}
-{%load static%}
-{% block title%}Home{% endblock%}
-<main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            display: flex;
+            color: #333;
+        }
 
-{%block content%}
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #1e1e2d; /* Dark background */
+            padding-top: 20px;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+        }
 
-<div class="container-fluid   mt-0">
-         <div class="container mt-0">
-            <h1>Welcome, {{ user.username }}!</h1>
-            <p> <b>This is your User Dashboard.</b></p>
-                </div>
+        .sidebar h2 {
+            text-align: center;
+            color: #f8b400; /* Accent color */
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 14px 20px;
+            color: #ddd;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            transition: 0.3s;
+            border-left: 4px solid transparent;
+            margin: 10px 0;
+        }
+
+        .sidebar a:hover {
+            background: #29293d;
+            border-left: 4px solid #f8b400;
+        }
+
+        /* Dividers between links */
+        .sidebar hr {
+            border: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 10px 15px;
+        }
+
+        /* Close Button (Only for Small Screens) */
+        .close-btn {
+            display: none;
+            text-align: right;
+            padding: 10px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        /* Content Area */
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            margin-left: 260px; /* Space for sidebar */
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        .content h1 {
+            color: #222;
+            font-size: 28px;
+        }
+
+        /* Sidebar Toggle Button (Only for Small Screens) */
+        .menu-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: #f8b400;
+            color: #1e1e2d;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            z-index: 1100;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -270px;
+                position: fixed;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .sidebar .close-btn {
+                display: block;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <span class="close-btn" id="closeButton">&times;</span>
+    <h2>🍽️ Menu</h2>
+    <a href="{% url 'home_page' %}">Dashboard</a>
+    <hr>
+    <a href="{% url 'meal_suggestion' %}">Get a Meal</a>
+    <hr>
+    <a href="{% url 'drinks' %}">Drinks</a>
+    <hr>
+    <a href="{% url 'fruits' %}">Fruits</a>
+    <hr>
+    <a href="{% url 'health_habits' %}">Health Habits</a>
+    <hr>
+    
 </div>
-<ul>
-<li class="nav-item">
-   <a class="nav-link" href="{% url 'meal_suggestion' %}">Get a Meal</a>
-</li>
-</ul>
 
-<div class="container-fluid">
+<!-- Sidebar Toggle Button (Visible on Small Screens) -->
+<button class="menu-btn" id="menuButton">☰ Menu</button>
 
-
-
-
+<!-- Content -->
+<div class="content">
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p><b>This is your User Dashboard.</b></p>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let sidebar = document.getElementById("sidebar");
+        let menuButton = document.getElementById("menuButton");
+        let closeButton = document.getElementById("closeButton");
 
+        menuButton.addEventListener("click", function () {
+            sidebar.style.left = "0px"; 
+        });
 
+        closeButton.addEventListener("click", function () {
+            sidebar.style.left = "-270px"; 
+        });
+    });
+</script>
 
-
-
-
-
-
-
-{%endblock%}
-
-</main>
+</body>
+</html>

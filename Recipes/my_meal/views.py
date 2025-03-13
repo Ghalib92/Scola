@@ -118,38 +118,44 @@ from django.utils.timezone import localtime, now
 from .models import AllergicRecipe, VegetarianRecipe, DiabeticRecipe, NormalRecipe
 
 def get_meal_suggestion(user):
-    """Pick a random meal based on user diet preference and current meal time"""
+     import random
+from django.utils.timezone import localtime, now
+
+def get_meal_suggestion(user):
+    """Pick three random meals (breakfast, lunch, and dinner) based on user diet preference."""
     user_profile = user.userprofile
 
-    # Determine the current meal time
-    current_hour = localtime(now()).hour 
-    if current_hour < 10:
-        meal_time = 'breakfast'
-    elif current_hour < 16:
-        meal_time = 'lunch'
-    else:
-        meal_time = 'dinner'
+    # Dictionary to hold meal suggestions
+    daily_meals = {
+        'breakfast': None,
+        'lunch': None,
+        'dinner': None
+    }
 
     # Select the appropriate meal category
     if user_profile.diet_preference == "allergic":
-        qs = AllergicRecipe.objects.filter(meal_time=meal_time)
+        meal_model = AllergicRecipe
     elif user_profile.diet_preference == "vegetarian":
-        qs = VegetarianRecipe.objects.filter(meal_time=meal_time)
+        meal_model = VegetarianRecipe
     elif user_profile.diet_preference == "diabetic":
-        qs = DiabeticRecipe.objects.filter(meal_time=meal_time)
+        meal_model = DiabeticRecipe
     else:
-        qs = NormalRecipe.objects.filter(meal_time=meal_time)
+        meal_model = NormalRecipe
 
-    # Return a random recipe if available
-    if qs.exists():
-        return qs.order_by('?').first()
-    else:
-        return None
+    # Fetch meals for each meal time
+    for meal_time in daily_meals.keys():
+        qs = meal_model.objects.filter(meal_time=meal_time)
+        if qs.exists():
+            daily_meals[meal_time] = qs.order_by('?').first()
+
+    return daily_meals
+
 
 def meal_suggestion(request):
-    """View to handle meal request"""
-    meal = None
-    if request.method == "POST":  # If user clicks the button
-        meal = get_meal_suggestion(request.user)
+    """View to handle meal request."""
+    meals = None  # Initialize meals as None
 
-    return render(request, 'meal_suggestion.html', {'meal': meal})
+    if request.method == "POST":  # If user clicks the button
+        meals = get_meal_suggestion(request.user)
+
+    return render(request, 'meal_suggestion.html', {'meals': meals})

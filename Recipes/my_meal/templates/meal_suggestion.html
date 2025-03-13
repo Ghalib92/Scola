@@ -1,100 +1,222 @@
-{% extends 'base.html' %}
-{% load static %}
-<style>
-    /* Styling for the meal suggestion page */
-.container {
-    max-width: 800px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Suggestion</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
 
-.card {
-    border-radius: 10px;
-    background: #f8f9fa;
-    margin-bottom: 20px;
-    padding: 20px;
-}
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-.card h3 {
-    color: #ff9800;
-    text-align: center;
-}
+        h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
 
-.card img {
-    width: 500px;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-    margin: 0 auto;
-}
+        .meal-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
 
-h5 {
-    margin-top: 20px;
-    color: #333;
-}
+        .meal-card img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
 
-.badge {
-    font-size: 1rem;
-    padding: 1rem;
-}
+        .meal-details {
+            text-align: left;
+            width: 100%;
+            max-width: 700px;
+        }
 
-.btn-primary {
-    background-color: #ff9800;
-    border-color: #ff9800;
-}
+        .meal-details h3 {
+            margin-top: 15px;
+            font-size: 22px;
+            color: #1a5276;
+        }
 
-.btn-primary:hover {
-    background-color: #e68900;
-    border-color: #e68900;
-}
+        .meal-time {
+            font-weight: bold;
+            color: white;
+            background: #28a745;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
 
-</style>
+        .meal-details h5 {
+            color: #34495e;
+            margin-top: 10px;
+            font-size: 18px;
+        }
 
-{% block content %}
-<div class="container-fluid mt-5">
-    <h2 class="text-center">Get a Meal Suggestion</h2>
+        .meal-details ul, .meal-details ol {
+            padding-left: 20px;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
 
-    <form method="POST" action="{% url 'meal_suggestion' %}">
-        {% csrf_token %}
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Give Me a Meal</button>
-        </div>
-    </form>
-    {% if meal %}
-    <div class="card shadow p-4 mt-4">
-        <h3 class="text-center">{{ meal.food_name }}</h3>
+        .meal-details ul li, .meal-details ol li {
+            margin-bottom: 5px;
+        }
 
-        <!-- Responsive Flexbox Layout -->
-        <div class="d-flex flex-column flex-md-row align-items-start gap-5 mb-5">
-            <!-- Image Section -->
-            <div class="flex-shrink-0 text-center">
-                <img src="{{ meal.meal_image.url }}" class="img-fluid rounded" style="width: 500px;" alt="{{ meal.food_name }}">
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .meal-card {
+                text-align: center;
+            }
+
+            .meal-details {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <h2>Today's Meal Suggestions</h2>
+
+        <!-- Button Above -->
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn" id="mealButton">Give Me a Meal</button>
+        </form>
+
+        {% if meals %}
+            <div class="meal-card">
+                <img src="{{ meals.breakfast.meal_image.url }}" alt="Breakfast">
+                <div class="meal-details">
+                    <h3>Breakfast: {{ meals.breakfast.food_name }}</h3>
+                    <p class="meal-time">Breakfast</p>
+                    <h5>Health Benefits:</h5>
+                    <ul>
+                        {% for benefit in meals.breakfast.get_health_benefits_list %}
+                            <li>{{ benefit }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h5>Cooking Procedure:</h5>
+                    <ol>
+                        {% for step in meals.breakfast.get_cooking_procedure_list %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                    </ol>
+                    <h5>How to Serve:</h5>
+                    <p>{{ meals.breakfast.how_to_serve }}</p>
+                </div>
             </div>
 
-            <!-- Text Content -->
-            <div class="flex-grow-1 " >
-                <h5>Health Benefits</h5>
-                <ul class="mb-3">
-                    {% for benefit in meal.get_health_benefits_list %}
-                        <li>{{ benefit }}</li>
-                    {% endfor %}
-                </ul>
-
-                <h5>Cooking Procedure</h5>
-                <ol class="mb-3">
-                    {% for step in meal.get_cooking_procedure_list %}
-                        <li>{{ step }}</li>
-                    {% endfor %}
-                </ol>
-
-                <h5>How to Serve</h5>
-                <p class="mb-3">{{ meal.how_to_serve }}</p>
-
-                <h5>Best Time for Meal</h5>
-                <p class="badge bg-success">{{ meal.meal_time|title }}</p>
+            <div class="meal-card">
+                <img src="{{ meals.lunch.meal_image.url }}" alt="Lunch">
+                <div class="meal-details">
+                    <h3>Lunch: {{ meals.lunch.food_name }}</h3>
+                    <p class="meal-time">Lunch</p>
+                    <h5>Health Benefits:</h5>
+                    <ul>
+                        {% for benefit in meals.lunch.get_health_benefits_list %}
+                            <li>{{ benefit }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h5>Cooking Procedure:</h5>
+                    <ol>
+                        {% for step in meals.lunch.get_cooking_procedure_list %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                    </ol>
+                    <h5>How to Serve:</h5>
+                    <p>{{ meals.lunch.how_to_serve }}</p>
+                </div>
             </div>
-        </div>
+
+            <div class="meal-card">
+                <img src="{{ meals.dinner.meal_image.url }}" alt="Dinner">
+                <div class="meal-details">
+                    <h3>Dinner: {{ meals.dinner.food_name }}</h3>
+                    <p class="meal-time">Dinner</p>
+                    <h5>Health Benefits:</h5>
+                    <ul>
+                        {% for benefit in meals.dinner.get_health_benefits_list %}
+                            <li>{{ benefit }}</li>
+                        {% endfor %}
+                    </ul>
+                    <h5>Cooking Procedure:</h5>
+                    <ol>
+                        {% for step in meals.dinner.get_cooking_procedure_list %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                    </ol>
+                    <h5>How to Serve:</h5>
+                    <p>{{ meals.dinner.how_to_serve }}</p>
+                </div>
+            </div>
+
+            <!-- JavaScript for Button Change -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    let mealButton = document.getElementById("mealButton");
+
+                    if (mealButton) {
+                        mealButton.textContent = "Give Me Another Suggestion";
+                    }
+                });
+            </script>
+        {% endif %}
+
+        <!-- Button Below -->
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn" id="mealButtonBottom">Give Me a Meal</button>
+        </form>
     </div>
-{% endif %}
 
-
-
-{% endblock %}
+</body>
+</html>

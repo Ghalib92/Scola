@@ -1,222 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Suggestion</title>
-    <style>
-        /* General Styling */
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 40px 20px;
-            background: #f8f9fa;
-            color: #333;
-        }
+{%extends 'base.html'%}
+{%load static %}
+{% block title %} Blog {%endblock%}
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
 
-        h2 {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
+<main>
+{% block content %}
 
-        .meal-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
 
-        .meal-card img {
-            width: 100%;
-            max-width: 350px;
-            height: auto;
-            border-radius: 10px;
-            object-fit: cover;
-        }
 
-        .meal-details {
-            text-align: left;
-            width: 100%;
-            max-width: 700px;
-        }
 
-        .meal-details h3 {
-            margin-top: 15px;
-            font-size: 22px;
-            color: #1a5276;
-        }
+<div class="container-fluid">
+    <h2>Today's Meal Suggestions</h2>
 
-        .meal-time {
-            font-weight: bold;
-            color: white;
-            background: #28a745;
-            padding: 6px 12px;
-            border-radius: 5px;
-            display: inline-block;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+    <!-- Button Above -->
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn" id="mealButton">Give Me a Meal</button>
+    </form>
 
-        .meal-details h5 {
-            color: #34495e;
-            margin-top: 10px;
-            font-size: 18px;
-        }
-
-        .meal-details ul, .meal-details ol {
-            padding-left: 20px;
-            margin: 10px 0;
-            line-height: 1.6;
-        }
-
-        .meal-details ul li, .meal-details ol li {
-            margin-bottom: 5px;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 20px auto;
-            padding: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            color: white;
-            background: #007bff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #0056b3;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .meal-card {
-                text-align: center;
-            }
-
-            .meal-details {
-                text-align: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container-fluid">
-        <h2>Today's Meal Suggestions</h2>
-
-        <!-- Button Above -->
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn" id="mealButton">Give Me a Meal</button>
-        </form>
-
-        {% if meals %}
-            <div class="meal-card">
-                <img src="{{ meals.breakfast.meal_image.url }}" alt="Breakfast">
-                <div class="meal-details">
-                    <h3>Breakfast: {{ meals.breakfast.food_name }}</h3>
-                    <p class="meal-time">Breakfast</p>
-                    <h5>Health Benefits:</h5>
-                    <ul>
-                        {% for benefit in meals.breakfast.get_health_benefits_list %}
-                            <li>{{ benefit }}</li>
-                        {% endfor %}
-                    </ul>
-                    <h5>Cooking Procedure:</h5>
-                    <ol>
-                        {% for step in meals.breakfast.get_cooking_procedure_list %}
-                            <li>{{ step }}</li>
-                        {% endfor %}
-                    </ol>
-                    <h5>How to Serve:</h5>
-                    <p>{{ meals.breakfast.how_to_serve }}</p>
-                </div>
+    {% if meals %}
+        <div class="meal-card">
+            <img src="{{ meals.breakfast.meal_image.url }}" alt="Breakfast">
+            <div class="meal-details">
+                <h3>Breakfast: {{ meals.breakfast.food_name }}</h3>
+                <p class="meal-time">Breakfast</p>
+                <h5>Health Benefits:</h5>
+                <ul>
+                    {% for benefit in meals.breakfast.get_health_benefits_list %}
+                        <li>{{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+                <h5>Cooking Procedure:</h5>
+                <ol>
+                    {% for step in meals.breakfast.get_cooking_procedure_list %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+                <h5>How to Serve:</h5>
+                <p>{{ meals.breakfast.how_to_serve }}</p>
             </div>
+        </div>
 
-            <div class="meal-card">
-                <img src="{{ meals.lunch.meal_image.url }}" alt="Lunch">
-                <div class="meal-details">
-                    <h3>Lunch: {{ meals.lunch.food_name }}</h3>
-                    <p class="meal-time">Lunch</p>
-                    <h5>Health Benefits:</h5>
-                    <ul>
-                        {% for benefit in meals.lunch.get_health_benefits_list %}
-                            <li>{{ benefit }}</li>
-                        {% endfor %}
-                    </ul>
-                    <h5>Cooking Procedure:</h5>
-                    <ol>
-                        {% for step in meals.lunch.get_cooking_procedure_list %}
-                            <li>{{ step }}</li>
-                        {% endfor %}
-                    </ol>
-                    <h5>How to Serve:</h5>
-                    <p>{{ meals.lunch.how_to_serve }}</p>
-                </div>
+        <div class="meal-card">
+            <img src="{{ meals.lunch.meal_image.url }}" alt="Lunch">
+            <div class="meal-details">
+                <h3>Lunch: {{ meals.lunch.food_name }}</h3>
+                <p class="meal-time">Lunch</p>
+                <h5>Health Benefits:</h5>
+                <ul>
+                    {% for benefit in meals.lunch.get_health_benefits_list %}
+                        <li>{{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+                <h5>Cooking Procedure:</h5>
+                <ol>
+                    {% for step in meals.lunch.get_cooking_procedure_list %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+                <h5>How to Serve:</h5>
+                <p>{{ meals.lunch.how_to_serve }}</p>
             </div>
+        </div>
 
-            <div class="meal-card">
-                <img src="{{ meals.dinner.meal_image.url }}" alt="Dinner">
-                <div class="meal-details">
-                    <h3>Dinner: {{ meals.dinner.food_name }}</h3>
-                    <p class="meal-time">Dinner</p>
-                    <h5>Health Benefits:</h5>
-                    <ul>
-                        {% for benefit in meals.dinner.get_health_benefits_list %}
-                            <li>{{ benefit }}</li>
-                        {% endfor %}
-                    </ul>
-                    <h5>Cooking Procedure:</h5>
-                    <ol>
-                        {% for step in meals.dinner.get_cooking_procedure_list %}
-                            <li>{{ step }}</li>
-                        {% endfor %}
-                    </ol>
-                    <h5>How to Serve:</h5>
-                    <p>{{ meals.dinner.how_to_serve }}</p>
-                </div>
+        <div class="meal-card">
+            <img src="{{ meals.dinner.meal_image.url }}" alt="Dinner">
+            <div class="meal-details">
+                <h3>Dinner: {{ meals.dinner.food_name }}</h3>
+                <p class="meal-time">Dinner</p>
+                <h5>Health Benefits:</h5>
+                <ul>
+                    {% for benefit in meals.dinner.get_health_benefits_list %}
+                        <li>{{ benefit }}</li>
+                    {% endfor %}
+                </ul>
+                <h5>Cooking Procedure:</h5>
+                <ol>
+                    {% for step in meals.dinner.get_cooking_procedure_list %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+                <h5>How to Serve:</h5>
+                <p>{{ meals.dinner.how_to_serve }}</p>
             </div>
+        </div>
 
-            <!-- JavaScript for Button Change -->
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    let mealButton = document.getElementById("mealButton");
+        <!-- JavaScript for Button Change -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let mealButton = document.getElementById("mealButton");
 
-                    if (mealButton) {
-                        mealButton.textContent = "Give Me Another Suggestion";
-                    }
-                });
-            </script>
-        {% endif %}
+                if (mealButton) {
+                    mealButton.textContent = "Give Me Another Suggestion";
+                }
+            });
+        </script>
+    {% endif %}
 
-        <!-- Button Below -->
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn" id="mealButtonBottom">Give Me a Meal</button>
-        </form>
-    </div>
+    <!-- Button Below -->
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn" id="mealButtonBottom">Give Me a Meal</button>
+    </form>
+</div>
 
-</body>
-</html>
+
+
+{%endblock%}
+</main>

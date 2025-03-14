@@ -2,47 +2,53 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
 <div class="container-fluid mt-5">
-    <div class="row">
-
-        <div class="card mt-4 p-4 shadow">
-            <h3 class="text-center">Current Profile</h3>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
             
-            {% if user_profile and user_profile.profile_pic %}
-                <div class="text-center">
-                    <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture" class="profile-img img-thumbnail" style="width: 500px;" height="200px" float="left">
+            <!-- Profile Card -->
+            <div class="card profile-card">
+                <h3 class="card-title text-center">Current Profile</h3>
+
+                <div class="text-center profile-img-container">
+                    {% if user_profile and user_profile.profile_pic %}
+                        <img src="{{ user_profile.profile_pic.url }}" alt="Profile Picture" class="profile-img">
+                    {% else %}
+                        <p class="text-muted">No profile picture uploaded.</p>
+                    {% endif %}
                 </div>
-            {% else %}
-                <p  style="text-align: center;" class="text-muted text-center">No profile picture uploaded.</p>
-            {% endif %}
 
-            <p style="text-align: center;" class="mt-3"><strong>Diet Preference:</strong> {{ user_profile.diet_preference|default:"Not specified" }}</p>
+                <p class="text-center mt-3"><strong>Diet Preference:</strong> {{ user_profile.diet_preference|default:"Not specified" }}</p>
+            </div>
 
-        <div class="col-md-8 offset-md-2">
-            <div class="card shadow p-4">
-                <h2 class="text-center text-danger">Update Profile</h2>
-                
-                <form method="POST" enctype="multipart/form-data" class="mt-3">
+            <!-- Update Profile Form -->
+            <div class="card profile-card mt-4">
+                <h2 class="text-center text-primary">Update Profile</h2>
+
+                <form method="POST" enctype="multipart/form-data" class="profile-form">
                     {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Profile Picture</strong></label>
+
+                    <div class="form-group">
+                        <label><strong>Profile Picture</strong></label>
                         {{ form.profile_pic }}
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label"><strong>Diet Preference</strong></label>
+                    <div class="form-group">
+                        <label><strong>Diet Preference</strong></label>
                         {{ form.diet_preference }}
                     </div>
 
-                    <button type="submit" class="btn-danger w-100">Update Profile</button>
+                    <button type="submit" class="btn btn-danger w-100">Update Profile</button>
                 </form>
             </div>
 
-           
-                <div class="text-center mt-3 mb-3">
-                    <a href="{% url 'home_page' %}" class="btn btn-primary"> <b> <--- Back</b></a>
-                </div>
+            <!-- Back Button -->
+            <div class="text-center mt-4">
+                <a href="{% url 'home_page' %}" class="btn btn-outline-secondary back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
             </div>
         </div>
     </div>

@@ -30,3 +30,21 @@ class DiabeticRecipeAdmin(admin.ModelAdmin):
 class NormalRecipeAdmin(admin.ModelAdmin):
     list_display = ('food_name', 'meal_time')
     search_fields = ('food_name',)
+
+
+
+
+from .models import (
+    AllergicDrinks, AllergicSnacks, AllergicDesserts, AllergicFruits,
+    VegeterianDrinks, VegeterianSnacks, VegeterianDesserts, VegeterianFruits,
+    NormalDrinks, NormalSnacks, NormalDesserts, NormalFruits,
+    DiabeticDrinks, DiabeticSnacks, DiabeticDesserts, DiabeticFruits
+)
+
+
+admin.site.register([
+    AllergicDrinks, AllergicSnacks, AllergicDesserts, AllergicFruits,
+    VegeterianDrinks, VegeterianSnacks, VegeterianDesserts, VegeterianFruits,
+    NormalDrinks, NormalSnacks, NormalDesserts, NormalFruits,
+    DiabeticDrinks, DiabeticSnacks, DiabeticDesserts, DiabeticFruits
+])

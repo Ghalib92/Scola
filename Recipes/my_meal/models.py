@@ -27,7 +27,19 @@ class UserProfile(models.Model):
 
     ]
     
+    
     diet_preference = models.CharField(max_length=50, choices=DIET_CHOICES, default='normal')
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')  # Default is 'Male'
+    bio = models.CharField(max_length=150,null=True, blank=True)
+    date_of_birth = models.DateField (null=True, blank=True)
+    location = models.CharField(max_length=50,null=True, blank=True)
+    website = models.URLField(blank=True, null=True)
+    social_media = models.JSONField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -48,7 +60,7 @@ class RecipeBase(models.Model):
     how_to_serve = models.TextField()
     meal_time = models.CharField(max_length=10, choices=FOOD_TIMES)
     meal_image = models.ImageField(upload_to='meal_images/', null=True, blank=True)
-
+   
     class Meta:
         abstract = True  # This ensures that it's not created as a separate table
 
@@ -72,4 +84,87 @@ class DiabeticRecipe(RecipeBase):
     pass
 
 class AllergicRecipe(RecipeBase):
+    pass
+class Drinks (models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='drink_images/')
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return super().__str__()
+class AllergicDrinks(Drinks):
+    pass
+class DiabeticDrinks(Drinks):
+    pass  
+class VegeterianDrinks(Drinks):
+    pass
+
+
+class NormalDrinks(Drinks):
+    pass
+
+
+class Snacks(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='snack_images/')
+
+    class Meta:
+        abstract = True
+
+        def __str__(self):
+            return super().__str__()
+ 
+class AllergicSnacks(Snacks):
+    pass
+class DiabeticSnacks(Snacks):
+    pass  
+class VegeterianSnacks(Snacks):
+    pass
+
+class NormalSnacks(Snacks):
+    pass
+ 
+class Desserts(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='snack_images/')
+
+    class Meta:
+        abstract = True
+
+        def __str__(self):
+            return super().__str__()
+class AllergicDesserts(Desserts):
+    pass
+class DiabeticDesserts(Desserts):
+    pass  
+class VegeterianDesserts(Desserts):
+    pass
+
+class NormalDesserts(Desserts):
+    pass
+
+class Fruits(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='snack_images/')
+
+    class Meta:
+        abstract = True
+
+        def __str__(self):
+            return super().__str__()
+ 
+class AllergicFruits(Fruits):
+    pass
+class DiabeticFruits(Fruits):
+    pass  
+class VegeterianFruits(Fruits):
+    pass
+
+class NormalFruits(Fruits):
     pass

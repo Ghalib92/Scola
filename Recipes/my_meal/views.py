@@ -93,7 +93,7 @@ from .forms import ProfileUpdateForm
 from .models import UserProfile
 
 @login_required
-def profile(request):
+def update(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -104,7 +104,7 @@ def profile(request):
     else:
         form = ProfileUpdateForm(instance=user_profile)
 
-    return render(request, 'profile.html', {'form': form, 'user_profile': user_profile})
+    return render(request, 'update.html', {'form': form, 'user_profile': user_profile})
  
 
 
@@ -178,3 +178,8 @@ def snacks(request):
 
 def desserts(request):
     return render(request, 'desserts.html')
+@login_required
+def profile(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    return render(request, 'profile.html', {'user_profile': user_profile})

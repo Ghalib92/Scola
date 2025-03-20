@@ -16,5 +16,5 @@ urlpatterns = [
     path('health-habits/', views.health_habits, name='health_habits'),
     path('snacks/', views.snacks, name='snacks'),
     path('desserts/', views.desserts, name='desserts'),
-
+    path('update/',views.update,name = 'update'),
 ]

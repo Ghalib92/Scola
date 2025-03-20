@@ -7,7 +7,7 @@ class ProfileUpdateForm(forms.ModelForm):
     
         fields = [
                 'profile_pic', 'diet_preference', 'gender', 'bio', 
-                'date_of_birth', 'location', 'website', 'social_media', 'phone_number'
+                'date_of_birth', 'location', 'website', 'social_media', 'phone_number','weight','health_goals',
             ]  # ✅ Ensure fields are specified correctly
 
         widgets = {

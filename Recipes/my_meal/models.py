@@ -41,7 +41,15 @@ class UserProfile(models.Model):
     social_media = models.JSONField(blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    GOALS = [
+      ('weight_increase','Weight_Increase'),
+       ('weight_loss','Weight_Loss'),
+      ( 'weight_retantion','Weight_Retantion'),
 
+   ]
+    health_goals = models.CharField(max_length=50, choices = GOALS, default='normal'  )
+  
+    weight = models.IntegerField(null=True, blank=True)
     def __str__(self):
         return self.user.username
     
@@ -168,3 +176,7 @@ class VegeterianFruits(Fruits):
 
 class NormalFruits(Fruits):
     pass
+
+
+
+

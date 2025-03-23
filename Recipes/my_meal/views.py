@@ -183,3 +183,39 @@ def profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     
     return render(request, 'profile.html', {'user_profile': user_profile})
+
+
+
+from .models import Drink, Snack, Dessert, Fruit, UserProfile
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def drinks_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    recommended_drinks = Drink.objects.filter(category=user_profile.diet_preference)
+
+    return render(request, 'drinks.html', {'recommended_drinks': recommended_drinks})
+
+
+@login_required
+def snacks_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    recommended_snacks = Snack.objects.filter(category=user_profile.diet_preference)
+
+    return render(request, 'snacks.html', {'recommended_snacks': recommended_snacks})
+
+
+@login_required
+def desserts_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    recommended_desserts = Dessert.objects.filter(category=user_profile.diet_preference)
+
+    return render(request, 'desserts.html', {'recommended_desserts': recommended_desserts})
+
+
+@login_required
+def fruits_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    recommended_fruits = Fruit.objects.filter(category=user_profile.diet_preference)
+
+    return render(request, 'fruits.html', {'recommended_fruits': recommended_fruits})

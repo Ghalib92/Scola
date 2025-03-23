@@ -90,93 +90,54 @@ class VegetarianRecipe(RecipeBase):
 
 class DiabeticRecipe(RecipeBase):
     pass
-
 class AllergicRecipe(RecipeBase):
     pass
-class Drinks (models.Model):
+
+ 
+DIET_CHOICES = [
+    ('allergic', 'Allergic'),
+    ('diabetic', 'Diabetic'),
+    ('vegetarian', 'Vegetarian'),
+    ('normal', 'No Restrictions'),
+]
+
+class Drink(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='drink_images/')
-
-    class Meta:
-        abstract = True
+    category = models.CharField(max_length=20, choices=DIET_CHOICES)
 
     def __str__(self):
-        return super().__str__()
-class AllergicDrinks(Drinks):
-    pass
-class DiabeticDrinks(Drinks):
-    pass  
-class VegeterianDrinks(Drinks):
-    pass
+        return f"{self.name} ({self.get_category_display()})"
 
 
-class NormalDrinks(Drinks):
-    pass
-
-
-class Snacks(models.Model):
+class Snack(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='snack_images/')
+    category = models.CharField(max_length=20, choices=DIET_CHOICES)
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return f"{self.name} ({self.get_category_display()})"
 
-        def __str__(self):
-            return super().__str__()
- 
-class AllergicSnacks(Snacks):
-    pass
-class DiabeticSnacks(Snacks):
-    pass  
-class VegeterianSnacks(Snacks):
-    pass
 
-class NormalSnacks(Snacks):
-    pass
- 
-class Desserts(models.Model):
+class Dessert(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='snack_images/')
+    image = models.ImageField(upload_to='dessert_images/')
+    category = models.CharField(max_length=20, choices=DIET_CHOICES)
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return f"{self.name} ({self.get_category_display()})"
 
-        def __str__(self):
-            return super().__str__()
-class AllergicDesserts(Desserts):
-    pass
-class DiabeticDesserts(Desserts):
-    pass  
-class VegeterianDesserts(Desserts):
-    pass
 
-class NormalDesserts(Desserts):
-    pass
-
-class Fruits(models.Model):
+class Fruit(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='snack_images/')
+    image = models.ImageField(upload_to='fruit_images/')
+    category = models.CharField(max_length=20, choices=DIET_CHOICES)
 
-    class Meta:
-        abstract = True
-
-        def __str__(self):
-            return super().__str__()
- 
-class AllergicFruits(Fruits):
-    pass
-class DiabeticFruits(Fruits):
-    pass  
-class VegeterianFruits(Fruits):
-    pass
-
-class NormalFruits(Fruits):
-    pass
-
-
+    def __str__(self):
+        return f"{self.name} ({self.get_category_display()})"
 
 

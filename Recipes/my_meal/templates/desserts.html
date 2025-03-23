@@ -1,17 +1,79 @@
-{%extends 'base.html'%}
-{%load static %}
-{% block title %}  Desserts {%endblock%}
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Drinks {% endblock %}
 
+<style>
+    .drink-item {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+    .drink-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .drink-item .image-container { /* New container for the image */
+        width: 100%;
+        height: 250px; /* Fixed height for all images */
+        overflow: hidden; /* Clip any overflowing parts */
+        border-radius: 12px 12px 0 0;
+    }
+
+    .drink-item img {
+        width: 100%;
+        height: 100%; /* Fill the container */
+        object-fit: cover; /* Maintain aspect ratio and cover the container */
+    }
+
+    .drink-item h3 {
+        font-size: 1.6rem;
+        margin-top: 15px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .drink-item p {
+        font-size: 1rem;
+        color: #555;
+        padding: 0 15px;
+        line-height: 1.5;
+        max-height: 70px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .container-fluid {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+</style>
 
 <main>
-{% block content %}
-
-
-
-
-
-
-
-
-{%endblock%}
+    {% block content %}
+    <div class="container-fluid">
+        <h2 class="text-center mb-4">Recommended Drinks for You</h2>
+        <div class="row">
+            {% for desserts in recommended_desserts %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="drink-item">
+                        <div class="image-container"> <img src="{{ desserts.image.url }}" alt="{{ desserts.name }}">
+                        </div>
+                        <h3>{{ desserts.name }}</h3>
+                        <p>{{ desserts.description }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>No recommended drinks for your diet.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
 </main>

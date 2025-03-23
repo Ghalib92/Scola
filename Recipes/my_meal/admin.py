@@ -32,19 +32,8 @@ class NormalRecipeAdmin(admin.ModelAdmin):
     search_fields = ('food_name',)
 
 
+ 
+from .models import Drink, Snack, Dessert, Fruit
 
-
-from .models import (
-    AllergicDrinks, AllergicSnacks, AllergicDesserts, AllergicFruits,
-    VegeterianDrinks, VegeterianSnacks, VegeterianDesserts, VegeterianFruits,
-    NormalDrinks, NormalSnacks, NormalDesserts, NormalFruits,
-    DiabeticDrinks, DiabeticSnacks, DiabeticDesserts, DiabeticFruits
-)
-
-
-admin.site.register([
-    AllergicDrinks, AllergicSnacks, AllergicDesserts, AllergicFruits,
-    VegeterianDrinks, VegeterianSnacks, VegeterianDesserts, VegeterianFruits,
-    NormalDrinks, NormalSnacks, NormalDesserts, NormalFruits,
-    DiabeticDrinks, DiabeticSnacks, DiabeticDesserts, DiabeticFruits
-])
+# Register models in a single line
+admin.site.register([Drink, Snack, Dessert, Fruit])

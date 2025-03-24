@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+<style>
+    /* Custom Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.alert-info {
+    background-color: #e2f3f5;
+    border-color: #b8e0e5;
+    color: #0c5460;
+}
+
+
+/* Custom Styles */
+.summary {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.lead {
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+.fas {
+    margin-right: 8px;
+    color: #28a745;
+}
+</style>
+{% block content %}
+
+
+<div class="container-fluid my-5 ">
+    <div class="row">
+        <!-- Weight Loss -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 ">
+            <div class="card shadow">
+                 
+                <div class="card-body bg-dark text-white">
+                    <h5 class="card-title">Weight Loss</h5>
+                    <p class="card-text">Losing weight requires a balanced diet and regular exercise. Incorporate protein-rich meals and avoid processed foods.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight Retention -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow">
+                    <div class="card-body bg-dark text-white">
+                      <h5 class="card-title">Weight Retention</h5>
+                    <p class="card-text">Maintaining your weight requires portion control and consistent physical activity. Avoid extreme diets and focus on sustainability.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight Increase -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card shadow">
+                      <div class="card-body bg-dark text-white">
+                    <h5 class="card-title">Weight Increase</h5>
+                    <p class="card-text">Gaining weight requires a calorie surplus, focusing on healthy fats and protein. Strength training is essential for muscle gain.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balanced Diet -->
+        <div class=" container mt-1 ">
+            <div class="card shadow">
+                    <div class="card-body  mt-1">
+                    <h5 class="card-title">Balanced Diet</h5>
+                    <p class="card-text">A well-balanced diet is crucial for overall health, ensuring your body gets essential nutrients for optimal functioning.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Full-Width Summary Section -->
+<div class="container-fluid summary mb-4 p-4 bg-light">
+    <h2 class="text-center text-primary mb-4">Importance of Health Management</h2>
+    <p class="text-justify lead">
+        Maintaining good health is essential for a long and fulfilling life. Proper health management involves a balance of <strong>nutrition, physical activity, mental well-being, and preventive healthcare</strong>. 
+        A well-managed diet not only helps in <strong>weight control</strong> but also reduces the risk of chronic illnesses such as <strong>diabetes, heart disease, and hypertension</strong>.
+    </p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-bolt mr-2"></i>Boosts Energy Levels</h4>
+                    <p class="card-text">Eating the right foods and staying hydrated help maintain <strong>optimal energy levels</strong>, allowing you to stay active and productive throughout the day.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-shield-alt mr-2"></i>Strengthens the Immune System</h4>
+                    <p class="card-text">A balanced diet rich in <strong>vitamins, minerals, and antioxidants</strong> helps the body fight infections and diseases more effectively.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-brain mr-2"></i>Promotes Mental Well-being</h4>
+                    <p class="card-text">Good health management is not just about the body; it also affects the <strong>mind</strong>. Eating nutrient-rich foods and staying active can <strong>reduce stress, anxiety, and depression</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-heartbeat mr-2"></i>Prevents Chronic Diseases</h4>
+                    <p class="card-text">A well-maintained diet and exercise routine lower the risk of lifestyle-related diseases like <strong>obesity, diabetes, cardiovascular diseases, and high blood pressure</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-bed mr-2"></i>Improves Sleep Quality</h4>
+                    <p class="card-text">Healthy eating habits and regular exercise help regulate sleep patterns, leading to <strong>better rest and overall recovery</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-stomach mr-2"></i>Enhances Digestive Health</h4>
+                    <p class="card-text">A diet rich in <strong>fiber, probiotics, and hydration</strong> improves digestion and prevents issues like constipation, bloating, and gut imbalances.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-weight mr-2"></i>Supports Healthy Weight Management</h4>
+                    <p class="card-text">Choosing the right foods based on your weight goal—<strong>weight gain, loss, or maintenance</strong>—helps you achieve and sustain a healthy body composition.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="text-success"><i class="fas fa-hourglass-half mr-2"></i>Increases Longevity & Quality of Life</h4>
+                    <p class="card-text">People who follow a <strong>healthy lifestyle</strong> tend to live longer and have a higher quality of life with <strong>reduced risk of age-related diseases</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-center mt-4 lead"><strong>Remember:</strong> Small, consistent lifestyle changes make a big difference in overall health and well-being!</p>
+</div>
+
+
+
+<div class="container-fluid mt-4">
+    {% if recommended_meals %}
+    <h2 class="text-center mb-4">Recommended Meals for {{ user_profile.health_goals }}</h2>
+    <div class="row">
+        {% for meal in recommended_meals %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ meal.image.url }}" class="card-img-top" alt="{{ meal.name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ meal.name }}</h5>
+                    <p class="card-text">{{ meal.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center" role="alert">
+        No recommended meals available for {{ user_profile.get_weight_goal_display }}. Please check back later.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

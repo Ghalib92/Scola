@@ -141,3 +141,20 @@ class Fruit(models.Model):
         return f"{self.name} ({self.get_category_display()})"
 
 
+# Categories for Weight Management
+ 
+GOALS = [
+      ('weight_increase','Weight_Increase'),
+       ('weight_loss','Weight_Loss'),
+      ( 'weight_retantion','Weight_Retantion'),
+
+   ]
+
+class WeightManagementFood(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='weight_foods/')
+    category = models.CharField(max_length=20, choices=GOALS)
+
+    def __str__(self):
+        return f"{self.name} ({self.get_category_display()})"

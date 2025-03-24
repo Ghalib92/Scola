@@ -16,6 +16,7 @@ urlpatterns = [
     path('drinks/', views.drinks_page, name='drinks'),
     path('snacks/', views.snacks_page, name='snacks'),
     path('desserts/', views.desserts_page, name='desserts'),
-    path('fruits/', views.fruits_page, name='fruits'),
+    path('fruits/', views.fruits, name='fruits'),
+    path('weight/', views.weight_management, name='weight'),
 
 ]

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Blog
+from .models import Blog,WeightManagementFood
 
 admin.site.register(Blog) 
 
@@ -37,3 +37,8 @@ from .models import Drink, Snack, Dessert, Fruit
 
 # Register models in a single line
 admin.site.register([Drink, Snack, Dessert, Fruit])
+
+
+
+
+admin.site.register(WeightManagementFood)

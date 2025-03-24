@@ -4,10 +4,10 @@ from django.http import HttpResponse
 from django .contrib.auth.models import User, auth
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Blog
+from .models import Blog,WeightManagementFood
 
 from .forms import ProfileUpdateForm
 from .models import UserProfile
@@ -214,8 +214,13 @@ def desserts_page(request):
 
 
 @login_required
-def fruits_page(request):
-    user_profile = UserProfile.objects.get(user=request.user)
-    recommended_fruits = Fruit.objects.filter(category=user_profile.diet_preference)
+def weight_management(request):
+  
+    user_profile = UserProfile.objects.get(user = request.user)  # Ensure user profile exists
 
-    return render(request, 'fruits.html', {'recommended_fruits': recommended_fruits})
+    recommended_meals = WeightManagementFood.objects.filter(category = user_profile.health_goals)
+
+    return render(request, 'weight_management.html', {
+        'user_profile': user_profile,
+        'recommended_meals': recommended_meals
+    })

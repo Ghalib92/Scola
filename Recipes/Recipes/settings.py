@@ -75,6 +75,17 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email provider's SMTP server
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'scolasticangugi19@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'kpzd crbk ztez aoqz'  # Replace with your email password
+
+
 ROOT_URLCONF = 'Recipes.urls'
 
 TEMPLATES = [

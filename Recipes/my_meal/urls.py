@@ -18,5 +18,7 @@ urlpatterns = [
     path('desserts/', views.desserts_page, name='desserts'),
     path('fruits/', views.fruit_page, name='fruits'),
     path('weight/', views.weight_management, name='weight'),
+    path('contact/', views.contact_us, name='contact_us'),
+    path('get-chef/', views.get_chef_request, name='get_chef'),
 
 ]

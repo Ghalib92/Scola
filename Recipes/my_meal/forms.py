@@ -17,3 +17,15 @@ class ProfileUpdateForm(forms.ModelForm):
                 'website': forms.URLInput(attrs={'class': 'form-control'}),
                 'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
             }
+        
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(required=True)
+    subject = forms.CharField(max_length=200, required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
+
+
+class GetChefForm(forms.Form):
+    live_location = forms.URLField(label="Live Location (Google Maps Link)", required=True)
+    reason = forms.CharField(label="Reason for Chef", widget=forms.Textarea, required=True)
+    event_size = forms.IntegerField(label="How big is the event?", required=True)

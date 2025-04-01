@@ -261,6 +261,22 @@
                     <a class="nav-link" href="{% url 'blog' %}">Blog</a>
                 </li>
                 
+
+                <li class="nav-item dropdown bg-white">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu bg-white" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{%  url 'meal_suggestion'%}">Meal</a></li>
+                        <li><a class="dropdown-item" href="{%  url 'meal_suggestion'%}">Recipes</a></li>
+                        <li><a class="dropdown-item" href="{%  url 'get_chef'%}">Get Chef</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}">Contact Us</a>
+
+                </li>
+                
             </ul>
         </nav>
 
@@ -323,6 +339,7 @@
             });
         });
     </script>
-
+<!-- Include Bootstrap JS (Place before closing </body>) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

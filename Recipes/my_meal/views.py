@@ -243,3 +243,79 @@ def health_habits(request):
         'user_profile': user_profile,
         'recommended_habits': recommended_habits
     })
+
+
+
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import ContactForm
+from django.http import HttpResponse
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Get form data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            # Compose email content
+            email_subject = f"Contact Us Form: {subject}"
+            email_message = f"Message from: {name} ({email})\n\n{message}"
+
+            # Send email
+            try:
+                send_mail(email_subject, email_message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
+                return HttpResponse('Thank you for your message! We will get back to you soon.')
+            except Exception as e:
+                return HttpResponse(f'Error: {str(e)}')
+
+    else:
+        form = ContactForm()
+
+    return render(request, 'contact_us.html', {'form': form})
+from .forms import GetChefForm
+from django.http import HttpResponse
+
+def get_chef_request(request):
+    if request.method == 'POST':
+        form = GetChefForm(request.POST)
+        if form.is_valid():
+            # Get form data
+            live_location = form.cleaned_data['live_location']
+            reason = form.cleaned_data['reason']
+            event_size = form.cleaned_data['event_size']
+
+            # Check if user is authenticated
+            if request.user.is_authenticated:
+                user_email = request.user.email
+                user_name = request.user.get_full_name() or request.user.username
+            else:
+                return HttpResponse("You must be logged in to request a chef.")
+
+            # Email details
+            subject = "Chef Request Received"
+            message = (
+                f"Hello {user_name},\n\n"
+                f"Your request for a chef has been received and is being processed.\n\n"
+                f"Details:\n"
+                f"- Live Location: {live_location}\n"
+                f"- Reason: {reason}\n"
+                f"- Event Size: {event_size} people\n\n"
+                f"A chef will be assigned to you shortly.\n\n"
+                f"Thank you for choosing our service!"
+            )
+
+            # Send email to user
+            try:
+                send_mail(subject, message, settings.EMAIL_HOST_USER, [user_email])
+                return HttpResponse('Your request has been received. Check your email for confirmation.')
+            except Exception as e:
+                return HttpResponse(f'Error: {str(e)}')
+
+    else:
+        form = GetChefForm()
+
+    return render(request, 'get_chef.html', {'form': form})

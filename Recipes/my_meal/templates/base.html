@@ -22,14 +22,16 @@
                     <li class="nav-item ">
                         <a class="nav-link text-white" href="{%url 'about'%}">About Us</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
-
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog' %}">Blog</a>
        
                  </li>
+{%if user.is_authenticated%}
+                 <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+
+                </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Services
@@ -40,7 +42,7 @@
                             <li><a class="dropdown-item" href="#">Get Chef</a></li>
                         </ul>
                     </li>
-
+{%endif%}
                     {% if user.is_authenticated %}
     <a class="nav-link" href="{% url 'profile' %}">Profile</a>
 {% endif %}

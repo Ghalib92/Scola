@@ -16,23 +16,26 @@
             <img class="img-fluid rounded w-100" alt="home image" src="{% static 'media/home.jpg' %}" style="max-height: 500px; object-fit: cover;">
         </div>
         <!-- Text Column -->
-        <div class="col-sm-8 text-white bg-dark rounded d-flex align-items-start">
-            <div>
-                <h2 class="welcome">Welcome to Alpha Delicacies</h2>
-                <p>
+        <div class="col-sm-8 text-white bg-dark rounded-3 p-4 p-md-5 shadow">
+            <div class="d-flex flex-column h-100">
+                <h2 class="welcome display-4 fw-bold mb-4">Welcome to Alpha Delicacies</h2>
+                <p class="lead mb-4">
                     Your ultimate destination for the best recipes, delicious meal suggestions, and expert chef services! 
                     Whether you're looking for mouthwatering dishes to try at home or need a professional chef to cater 
-                    for your special events like weddings, birthdays, and parties, we've got you covered. Explore our carefully 
-                    curated recipes, get inspired by our meal plans, and book a chef to bring restaurant-quality dining straight 
-                    to your event. Delight your taste buds with Alpha Delicacies! 🍽️✨
-               
-                  <br><br>  <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg text-white">Login</a>
-                <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg ms-3 text-white">Signup</a>
-    
+                    for your special events like weddings, birthdays, and parties, we've got you covered.
                 </p>
-
-                
-                 
+                <p class="mb-4">
+                    Explore our carefully curated recipes, get inspired by our meal plans, and book a chef to bring 
+                    restaurant-quality dining straight to your event. Delight your taste buds with Alpha Delicacies! 🍽️✨
+                </p>
+                <div class="mt-auto d-flex flex-wrap gap-3">
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 py-2 fw-bold">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                    <a href="{% url 'signup' %}" class="btn btn-outline-light btn-lg px-4 py-2 fw-bold">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up
+                    </a>
+                </div>
             </div>
         </div>
     </div>

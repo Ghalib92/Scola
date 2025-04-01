@@ -158,3 +158,13 @@ class WeightManagementFood(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.get_category_display()})"
+
+
+class HealthHabits(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='health_habits/')
+    category = models.CharField(max_length=20, choices=GOALS ,default='Weight_Retantion')
+
+    def __str__(self):
+        return f"{self.name} ({self.description()})"

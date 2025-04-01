@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Blog,WeightManagementFood
+from .models import Blog,WeightManagementFood,HealthHabits
 
 from .forms import ProfileUpdateForm
 from .models import UserProfile
@@ -189,6 +189,15 @@ def profile(request):
 from .models import Drink, Snack, Dessert, Fruit, UserProfile
 from django.contrib.auth.decorators import login_required
 
+
+@login_required
+def fruit_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    recommended_fruits = Fruit.objects.filter(category=user_profile.diet_preference)
+
+    return render(request, 'fruits.html', {'recommended_fruits': recommended_fruits})
+
+
 @login_required
 def drinks_page(request):
     user_profile = UserProfile.objects.get(user=request.user)
@@ -223,4 +232,14 @@ def weight_management(request):
     return render(request, 'weight_management.html', {
         'user_profile': user_profile,
         'recommended_meals': recommended_meals
+    })
+
+@login_required
+def health_habits(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    recommended_habits = HealthHabits.objects.filter(category=user_profile.health_goals)
+
+    return render(request, 'health_habits.html', {
+        'user_profile': user_profile,
+        'recommended_habits': recommended_habits
     })

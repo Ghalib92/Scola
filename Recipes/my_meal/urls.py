@@ -20,5 +20,6 @@ urlpatterns = [
     path('weight/', views.weight_management, name='weight'),
     path('contact/', views.contact_us, name='contact_us'),
     path('get-chef/', views.get_chef_request, name='get_chef'),
+    path('discover/', views.discover, name = 'discover')
 
 ]

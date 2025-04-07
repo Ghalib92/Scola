@@ -1,104 +1,290 @@
 {% extends 'base.html' %}
 
 {% block title %}Contact Us{% endblock %}
-{%load static%}
+{% load static %}
 
-
-
-
-
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .container {
-        background-color: white;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 600px;
-        text-align: center;
-    }
-
-    h1 {
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .contact-details {
-        text-align: left;
-        margin-bottom: 20px;
-    }
-
-    .contact-details p {
-        margin: 5px 0;
-    }
-
-    .contact-details strong {
-        color: #007bff;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        margin-top: 10px;
-    }
-
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    textarea {
-        resize: vertical;
-        min-height: 100px;
-    }
-
-    button {
-        margin-top: 20px;
-        padding: 12px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background 0.3s ease-in-out;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-</style>
 {% block content %}
 
+<style>
+    :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #e74c3c;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+        --text: #333;
+        --light-text: #7f8c8d;
+        --white: #ffffff;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease-in-out;
+    }
+    
+    .contact-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 5rem 0;
+        min-height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+    }
+    
+    .contact-container {
+        background-color: var(--white);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        max-width: 1500px;
+        width: 90%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .contact-info {
+        background: var(--primary);
+        color: var(--white);
+        padding: 3rem;
+        position: relative;
+        
+    }
+    
+    .contact-info::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{% static "images/contact-pattern.png" %}') center/cover;
+        opacity: 0.1;
+         
+    }
+    
+    .contact-info h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .contact-info h1::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--secondary);
+    }
+    
+    .contact-details {
+        margin: 2rem 0;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-icon {
+        background: var(--secondary);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .contact-text h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .contact-text p {
+        color: var(--light);
+        opacity: 0.9;
+    }
+    
+    .social-links {
+        display: flex;
+        margin-top: 2rem;
+    }
+    
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        margin-right: 1rem;
+        color: var(--white);
+        transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+        background: var(--secondary);
+        transform: translateY(-3px);
+    }
+    
+    .contact-form {
+        padding: 3rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--dark);
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+    
+    .form-control:focus {
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+    
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    .submit-btn {
+        background: var(--secondary);
+        color: var(--white);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .submit-btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .submit-btn i {
+        margin-left: 8px;
+    }
+    
+    @media (max-width: 768px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .contact-info {
+            padding: 2rem;
+        }
+        
+        .contact-form {
+            padding: 2rem;
+        }
+    }
+</style>
 
-<div class="container mb-5">
-    <h1>Contact Us</h1>
-
-    <div class="contact-details">
-        <p><strong>Phone:</strong> +254 712 345 678</p>
-        <p><strong>Email:</strong> support@yourcompany.com</p>
-        <p><strong>Address:</strong> 123 Business Street, Nairobi, Kenya</p>
+<div class="contact-section">
+    <div class="contact-container">
+        <div class="contact-info">
+            <h1>Get in Touch</h1>
+            <p>Have questions or need assistance? Our team is here to help you with any inquiries you may have.</p>
+            
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Phone</h3>
+                        <p>+254 713 725548</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>scolasticangugi19@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Address</h3>
+                        <p>438 Business Street<br>Thika, Kenya</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        
+        <div class="contact-form">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Send Us a Message</h2>
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_name">Full Name</label>
+                    <input type="text" class="form-control" id="id_name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email">Email Address</label>
+                    <input type="email" class="form-control" id="id_email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_subject">Subject</label>
+                    <input type="text" class="form-control" id="id_subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_message">Your Message</label>
+                    <textarea class="form-control" id="id_message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
     </div>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Send Message</button>
-    </form>
 </div>
+
+<!-- Include Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 {% endblock %}

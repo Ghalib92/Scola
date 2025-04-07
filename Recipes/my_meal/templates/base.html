@@ -29,17 +29,16 @@
                  </li>
 {%if user.is_authenticated%}
                  <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
+                    <a class="nav-link" href="{% url 'contact_us'%}">Contact Us</a>
 
-                </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Services
                         </a>
-                        <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Meal</a></li>
-                            <li><a class="dropdown-item" href="#">Recipes</a></li>
-                            <li><a class="dropdown-item" href="#">Get Chef</a></li>
+                        <ul class="dropdown-menu bg-white" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{%  url 'meal_suggestion'%}">Meal</a></li>
+                            <li><a class="dropdown-item" href="{%  url 'meal_suggestion'%}">Recipes</a></li>
+                            <li><a class="dropdown-item" href="{%  url 'get_chef'%}">Get Chef</a></li>
                         </ul>
                     </li>
 {%endif%}
@@ -70,10 +69,10 @@
             <h1 class="display-4">Welcome to Alpha Recipes and Delicacies</h1>
             <p class="lead">Discover the best recipes, delicious meal suggestions, and expert chef services for your special events.</p>
             <div>
-                <a class="btn btn-primary btn-lg" href="#">Discover Our Recipes</a>
+                <a class="btn btn-primary btn-lg" href="{% url 'discover' %}">Discover Our Recipes</a>
             
                 
-                <a href="#" class="btn btn-outline-primary btn-lg">About Us</a>
+                <a href="{% url 'about' %}" class="btn btn-outline-primary btn-lg">About Us</a>
               
                  
             </div>

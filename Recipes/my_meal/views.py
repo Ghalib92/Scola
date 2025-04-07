@@ -150,7 +150,7 @@ def get_meal_suggestion(user):
 
     return daily_meals
 
-
+@login_required
 def meal_suggestion(request):
     """View to handle meal request."""
     meals = None  # Initialize meals as None
@@ -250,7 +250,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .forms import ContactForm
 from django.http import HttpResponse
-
+@login_required
 def contact_us(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -278,7 +278,7 @@ def contact_us(request):
     return render(request, 'contact_us.html', {'form': form})
 from .forms import GetChefForm
 from django.http import HttpResponse
-
+@login_required
 def get_chef_request(request):
     if request.method == 'POST':
         form = GetChefForm(request.POST)
@@ -319,3 +319,7 @@ def get_chef_request(request):
         form = GetChefForm()
 
     return render(request, 'get_chef.html', {'form': form})
+
+
+def discover(request):
+    return render(request, 'discover.html')

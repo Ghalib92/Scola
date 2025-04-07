@@ -1,97 +1,273 @@
-<!-- templates/get_chef.html -->
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Request a Chef{% endblock %}
-{%load static%}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+    :root {
+        --primary: #4a6b57;
+        --secondary: #e8a87c;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --text: #495057;
+        --light-text: #6c757d;
+        --white: #ffffff;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s ease;
     }
-
-    .container {
-        background-color: white;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 500px;
+    
+    .chef-request-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #dfe7ee 100%);
+        min-height: 100vh;
+        padding: 4rem 0;
+    }
+    
+    .chef-container {
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .chef-header {
+        background: var(--primary);
+        color: var(--white);
+        padding: 2rem;
         text-align: center;
     }
-
-    h1 {
-        color: #333;
-        margin-bottom: 20px;
+    
+    .chef-header h1 {
+        margin: 0;
+        font-weight: 600;
+        position: relative;
+        display: inline-block;
     }
-
-    form {
+    
+    .chef-header h1::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--secondary);
+    }
+    
+    .chef-header p {
+        margin-top: 1rem;
+        opacity: 0.9;
+    }
+    
+    .chef-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .contact-info {
+        background: rgba(74, 107, 87, 0.05);
+        padding: 2rem;
+    }
+    
+    .contact-info h2 {
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 8px;
+    }
+    
+    .contact-info h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--secondary);
+    }
+    
+    .contact-item {
         display: flex;
-        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
     }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        text-align: left;
+    
+    .contact-icon {
+        background: var(--secondary);
+        color: var(--white);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        flex-shrink: 0;
     }
-
-    input, textarea {
+    
+    .contact-text h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+        color: var(--primary);
+    }
+    
+    .contact-text p {
+        color: var(--text);
+    }
+    
+    .request-form {
+        padding: 2rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+    
+    .form-control {
         width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: var(--transition);
     }
-
-    textarea {
+    
+    .form-control:focus {
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(232, 168, 124, 0.2);
+        outline: none;
+    }
+    
+    textarea.form-control {
+        min-height: 120px;
         resize: vertical;
-        min-height: 100px;
     }
-
-    button {
-        margin-top: 20px;
-        padding: 12px;
-        background-color: #007bff;
-        color: white;
+    
+    .submit-btn {
+        background: var(--primary);
+        color: var(--white);
         border: none;
-        border-radius: 5px;
-        font-size: 18px;
+        padding: 12px 30px;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
         cursor: pointer;
-        transition: background 0.3s ease-in-out;
+        transition: var(--transition);
+        width: 100%;
     }
-
-    button:hover {
-        background-color: #0056b3;
+    
+    .submit-btn:hover {
+        background: #3a5545;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+        .chef-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .chef-container {
+            border-radius: 0;
+        }
+        
+        .chef-request-section {
+            padding: 0;
+        }
     }
 </style>
-{% block content %}
 
-
-<div class="container mb-5">
-    <h1>Contact Us</h1>
-    <p>Have questions or need assistance? Get in touch with us!</p>
-
-    <div class="contact-details">
-        <p><strong>Phone:</strong> +254 713 725 548</p>
-        <p><strong>Email:</strong> scolasticangugi19@gmail.com.com</p>
-        <p><strong>Address:</strong> 123 Business Street, Nairobi, Kenya</p>
+<div class="chef-request-section">
+    <div class="chef-container">
+        <div class="chef-header">
+            <h1><i class="fas fa-utensils"></i> Request a Personal Chef</h1>
+            <p>Fill out the form below and we'll match you with the perfect chef for your needs</p>
+        </div>
+        
+        <div class="chef-content">
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Phone</h3>
+                        <p>+254 713 725 548</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>scolasticangugi19@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Address</h3>
+                        <p>123 Business Street<br>Nairobi, Kenya</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Working Hours</h3>
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM<br>
+                        Saturday: 9:00 AM - 3:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="request-form">
+                <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Chef Request Form</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Request
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-
-
-
-<div class="container-fluid">
-    <h1>Request a Chef</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Send Request</button>
-    </form>
 </div>
 
 {% endblock %}
